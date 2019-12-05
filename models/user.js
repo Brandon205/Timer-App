@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const timeSchema = new mongoose.Schema({
+  time: { type: Number, required: true},
+  dnf: { type: Boolean, default: false},
+  session: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session'}]
+})
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,7 +25,8 @@ const userSchema = new mongoose.Schema({
     required: [true, 'You must enter an email'],
     minlength: [5, 'Password must be between 5 and 99 characters'],
     maxlength: [99, 'Password must be between 5 and 99 characters'],
-  }
+  },
+  times: [timeSchema]
 });
 
 userSchema.set('toObject', {

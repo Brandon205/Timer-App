@@ -29,7 +29,7 @@ class App extends React.Component {
         } else {
           // if verified store it back in LS and state
           localStorage.setItem('mernToken', res.data.token);
-          this.setState({ token: res.data.token });
+          this.setState({ token: res.data.token, user: res.data.user });
         }
       })
     }

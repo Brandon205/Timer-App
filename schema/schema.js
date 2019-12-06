@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const User = require('../models/user');
 const Session = require('../models/session');
 const Time = require('../models/time');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLFloat } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLFloat } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -36,6 +36,14 @@ const SessionType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     type: { type: GraphQLString }
+  })
+})
+
+const DeletedType = new GraphQLObjectType({
+  name: 'Deleted',
+  fields: () => ({
+    acknowledged: { type: GraphQLBoolean },
+    deletedCount: { type: GraphQLInt }
   })
 })
 
@@ -105,6 +113,38 @@ const Mutation = new GraphQLObjectType({
           userId: args.userId
         })
         return time.save();
+      }
+    },
+
+    updateTime: {
+      type: TimeType,
+      args: { timeId: { type: new GraphQLNonNull(GraphQLID)}, currTime: { type: GraphQLFloat } },
+      resolve(parent, args) {
+        return Time.findByIdAndUpdate(args.timeId, { time: args.currTime + 2 }, { new: true })
+      }
+    },
+
+    dnfTime: {
+      type: TimeType,
+      args: { timeId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return Time.findByIdAndUpdate(args.timeId, { dnf: true }, { new: true })
+      }
+    },
+
+    deleteTime: {
+      type: TimeType,
+      args: { timeId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return Time.findByIdAndDelete(args.timeId)
+      }
+    },
+
+    deleteTimes: {
+      type: DeletedType,
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) }, session: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return Time.deleteMany({session: args.session, userId: args.userId})
       }
     }
   }

@@ -1,8 +1,13 @@
 import React from 'react';
+import Axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import HamburgerMenu from 'react-hamburger-menu';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import './App.css';
+
 import Signup from './Signup';
 import Login from './Login';
-import './App.css';
-import Axios from 'axios';
 
 class App extends React.Component {
   state = { 
@@ -16,7 +21,7 @@ class App extends React.Component {
     // Look in LS for localtoken
     let token = localStorage.getItem('mernToken');
     if (!token || token === 'undefined') {
-      // if no taken, remove all evidence of mernToken from LS and state
+      // if no token, remove all evidence of mernToken from LS and state
       localStorage.removeItem('mernToken');
       this.setState({ token: '', user: null });
     } else {
@@ -48,24 +53,12 @@ class App extends React.Component {
     this.setState({ token: '', user: null });
   }
 
-  handleClick = () => {
-    let config = {
-      headers: {
-        Authorization: `Bearer ${this.state.token}`
-      }
-    }
-    Axios.get('/locked/test', config).then(res => {
-      this.setState({ lockedResult: res.data });
-    });
-  };
-
   render() { 
     let contents;
     if (this.state.user) {
       contents = (
         <>
           <p>Hello, {this.state.user.name} </p>
-          <button onClick={this.handleClick}>Test protected route</button>
           <button onClick={this.logout}>Logout</button>
           <p>{this.state.lockedResult}</p>
         </>
@@ -82,10 +75,12 @@ class App extends React.Component {
     return ( 
       <div className="App">
         <header>
-          <h1>Welcome to my site!</h1>
+          <nav>
+            
+          </nav>
         </header>
-        <div className="content-box">
-          {contents}
+        <div className="App">
+          {content}
         </div>
       </div>
     );

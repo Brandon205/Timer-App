@@ -7,8 +7,6 @@ import './App.css';
 
 import Main from './Main';
 import Scramble from './Scramble';
-import Time from './Time';
-import Cube from './Cube';
 import LoginPage from './LoginPage';
 
 
@@ -64,15 +62,11 @@ export default function App() {
   if (user) {
     nav = (
       <nav>
-        <Scramble type={selectedDropdown}/>
+        <h1>AppName</h1>
+        <Link to="/main">Timer</Link>
         <button onClick={logout}>Logout</button>
       </nav>
     )
-    // contents = (
-    //   <>
-    //     <p>Hello, {user.name} </p>
-    //   </>
-    // )
   } else {
     nav = (
       <nav>
@@ -80,12 +74,6 @@ export default function App() {
         <Link to="/login" >Login/Signup</Link>
       </nav>
     )
-    // contents = (
-    //   <>
-    //     <Signup liftToken={liftToken} />
-    //     <Login liftToken={liftToken} />
-    //   </>
-    // )
   }
 
   return ( 

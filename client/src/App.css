@@ -6,28 +6,6 @@ nav {
   background-color: rgba(128, 128, 128, 0.603);
 }
 
-nav h1 {
-  margin: 10px 0 0 0;
-}
-
 .App {
   text-align: center;
-}
-
-.nav-div {
-  width: 100px;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 90vw; 
-  background-color: rgba(128, 128, 128, 0.603);
-}
-
-.nav-div-content {
-  margin-top: 10vh;
-}
-
-.cooperate {
-  margin: 19px 0 21px 0;
-  z-index: 1;
 }

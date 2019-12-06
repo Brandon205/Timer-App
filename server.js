@@ -19,10 +19,7 @@ db.once('open', () => console.log(`Connected to MongoDB on ${db.host} at ${db.po
 db.on('error', (err) => console.log(`Database error: ${err}`));
 
 app.use('/auth', require('./routes/auth'));
-app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), require('./routes/locked'));
-app.use('/graphql', )
-
-app.get('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlHTTP({
   schema, 
   graphiql: true
 }));

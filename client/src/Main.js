@@ -91,7 +91,7 @@ export default function Main(props) {
       <aside className="left-aside">
         <h2>Times:</h2>
         {mappedSolves}
-        {/* <Time /> */}
+        {/* <Time type={type} /> */}
       </aside>
       <h1>{units.min}:{units.sec}.{units.msec}</h1>
       <Cube scramble={scramble} />

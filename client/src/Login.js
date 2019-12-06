@@ -1,11 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   state = { 
     email: '',
     password: '',
-    message: ''
+    message: '',
+    redirect: ''
   }
 
   handleChange = (e) => {
@@ -23,6 +25,7 @@ class Login extends React.Component {
         this.props.liftToken(res.data);
       }
     }).catch(err => console.log(err)); // Rate limiter catch block
+    this.setState({ redirect: <Redirect to="/main" /> });
   }
 
   render() { 
@@ -34,6 +37,7 @@ class Login extends React.Component {
           <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Password" />
           <input type="submit" value="Login"/>
         </form>
+        {this.state.redirect}
       </div>
     );
   }

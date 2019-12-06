@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import HamburgerMenu from 'react-hamburger-menu';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import './App.css';
 
-import Signup from './Signup';
-import Login from './Login';
+import Main from './Main';
 import Scramble from './Scramble';
+import Time from './Time';
+import Cube from './Cube';
+import LoginPage from './LoginPage';
 
 
 export default function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState('');
-  const [open, setOpen] = useState(false);
-  const [navDiv, setNavDiv] = useState(false);
 
   const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' });
 
@@ -61,46 +60,32 @@ export default function App() {
     setUser(null);
   }
 
-  let handleOpening = () => {
-    if (navDiv === true) {
-      setNavDiv(false)
-      setOpen(!open)
-    } else {
-      setNavDiv(true)
-      setOpen(!open)
-    }
-  }
-
-  let contents;
   let nav;
   if (user) {
     nav = (
       <nav>
         <Scramble type={selectedDropdown}/>
-        <HamburgerMenu isOpen={open} menuClicked={() => {setOpen(!open); setNavDiv(!navDiv)}} width={18} height={15} animationDuration={0.5} />
-        <div className="nav-div" style={{display: navDiv ? "inline-block" : "none"}}><div className="nav-div-content"> <p>Hello</p> </div></div>
+        <button onClick={logout}>Logout</button>
       </nav>
     )
-    contents = (
-      <>
-        <p>Hello, {user.name} </p>
-        <button onClick={logout}>Logout</button>
-      </>
-    )
+    // contents = (
+    //   <>
+    //     <p>Hello, {user.name} </p>
+    //   </>
+    // )
   } else {
     nav = (
       <nav>
         <h1>AppName</h1>
-        <div className="cooperate"><HamburgerMenu style={{top: 0, right: 5 + 'vw'}} isOpen={open} menuClicked={() => {setOpen(!open); setNavDiv(!navDiv)}} width={18} height={15} animationDuration={0.5} margin-top={100 + 'px'}><p>Hello</p> </HamburgerMenu></div>
-        <div className="nav-div" style={{display: navDiv ? "inline-block" : "none"}}><div className="nav-div-content"> <p>Hello</p> </div></div>
+        <Link to="/login" >Login/Signup</Link>
       </nav>
     )
-    contents = (
-      <>
-        <Signup liftToken={liftToken} />
-        <Login liftToken={liftToken} />
-      </>
-    )
+    // contents = (
+    //   <>
+    //     <Signup liftToken={liftToken} />
+    //     <Login liftToken={liftToken} />
+    //   </>
+    // )
   }
 
   return ( 
@@ -110,9 +95,10 @@ export default function App() {
           <header>
             {nav}
           </header>
-          <div className="App">
-            {contents}
-          </div>
+          <main>
+            <Route exact path='/main' render={ () => <Main user={user} /> } />
+            <Route exact path='/login' render={ () => <LoginPage liftToken={liftToken} /> } />
+          </main>
         </div>
       </ApolloProvider>
     </Router>

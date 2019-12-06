@@ -3,6 +3,8 @@ import Time from './Time';
 import Cube from './Cube';
 import Scramble from './Scramble';
 import { get3x3Scramble } from './scrambleGens';
+import { ADD_TIME } from './queries';
+import { useMutation } from '@apollo/react-hooks';
 
 export default function Main(props) {
 
@@ -13,6 +15,8 @@ export default function Main(props) {
   const [scramble, setScramble] = useState('');
   const [lastScramble, setLastScramble] = useState('');
   const [type, setType] = useState('3x3');
+
+  const [addTime] = useMutation(ADD_TIME);
 
   function getUnits() {
     const seconds = time / 1000;
@@ -58,6 +62,12 @@ export default function Main(props) {
         setActive(false)
         let endTime = getUnits()
         solves.push(`${endTime.min > 0 ? endTime.min + ':' : ``}${endTime.sec}.${endTime.msec}`)
+        addTime({
+          variables: {
+            userId: props.user._id,
+            session: type
+          }
+        })
       }
     }
   window.addEventListener('keyup', myFunc)

@@ -6,9 +6,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import './App.css';
 
 import Main from './Main';
-import Scramble from './Scramble';
 import LoginPage from './LoginPage';
-
 
 export default function App() {
   const [token, setToken] = useState('');

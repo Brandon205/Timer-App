@@ -18,10 +18,10 @@ const db = mongoose.connection;
 db.once('open', () => console.log(`Connected to MongoDB on ${db.host} at ${db.port}`));
 db.on('error', (err) => console.log(`Database error: ${err}`));
 
-app.use('/auth', require('./routes/auth'));
 app.use('/graphql', graphqlHTTP({
   schema, 
   graphiql: true
 }));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(process.env.PORT || 3001, () => console.log('Listening...'))

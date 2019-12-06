@@ -11,6 +11,7 @@ export const SESSION_TIMES = gql`
 export const SESSIONS = gql`
   {
     sessions {
+      id
       type
     }
   }
@@ -43,6 +44,14 @@ export const DNF_TIME = gql`
 export const DELETE_TIME = gql`
   mutation($timeId: ID!) {
     deleteTime(timeId: $timeId) {
+      time
+    }
+  }
+`
+
+export const DELETE_TIMES = gql`
+  mutation($userId: ID!, $session: ID!) {
+    deleteTimes(userId: $userId, session: $session) {
       acknowledged
       deleteCount
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import HamburgerMenu from 'react-hamburger-menu';
@@ -8,6 +8,8 @@ import './App.css';
 
 import Signup from './Signup';
 import Login from './Login';
+
+const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' });
 
 class App extends React.Component {
   state = { 
@@ -55,7 +57,14 @@ class App extends React.Component {
 
   render() { 
     let contents;
+    let nav;
     if (this.state.user) {
+      nav = (
+        <nav>
+          <Scramble type={selectedDropdown}/>
+          <HamburgerMenu />
+        </nav>
+      )
       contents = (
         <>
           <p>Hello, {this.state.user.name} </p>
@@ -64,6 +73,12 @@ class App extends React.Component {
         </>
       )
     } else {
+      nav = (
+        <nav>
+          <h1>AppName</h1>
+          <HamburgerMenu />
+        </nav>
+      )
       contents = (
         <>
           <Signup liftToken={this.liftToken} />
@@ -73,16 +88,18 @@ class App extends React.Component {
     }
 
     return ( 
-      <div className="App">
-        <header>
-          <nav>
-            
-          </nav>
-        </header>
-        <div className="App">
-          {content}
-        </div>
-      </div>
+      <Router>
+        <ApolloProvider client={client}>
+          <div className="App">
+            <header>
+              {nav}
+            </header>
+            <div className="App">
+              {contents}
+            </div>
+          </div>
+        </ApolloProvider>
+      </Router>
     );
   }
 }

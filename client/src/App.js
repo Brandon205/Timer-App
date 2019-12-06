@@ -8,100 +8,113 @@ import './App.css';
 
 import Signup from './Signup';
 import Login from './Login';
+import Scramble from './Scramble';
 
-const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' });
 
-class App extends React.Component {
-  state = { 
-    token: '',
-    user: null,
-    errorMessage: '',
-    lockedResult: ''
-  }
+export default function App() {
+  const [token, setToken] = useState('');
+  const [user, setUser] = useState(null);
+  const [selectedDropdown, setSelectedDropdown] = useState('');
+  const [open, setOpen] = useState(false);
+  const [navDiv, setNavDiv] = useState(false);
 
-  checkForLocalToken = () => {
+  const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' });
+
+  let checkForLocalToken = () => {
     // Look in LS for localtoken
     let token = localStorage.getItem('mernToken');
     if (!token || token === 'undefined') {
       // if no token, remove all evidence of mernToken from LS and state
       localStorage.removeItem('mernToken');
-      this.setState({ token: '', user: null });
+      setUser(null);
+      setToken('');
     } else {
       // if token, verify token on backend 
       Axios.post('/auth/me/from/token', { token })
       .then(res => {
         if (res.data.type === 'error') {
           localStorage.removeItem('mernToken');
-          this.setState({ token: '', user: null, errorMessage: res.data.message });
+          setUser(null);
+          setToken('');
         } else {
           // if verified store it back in LS and state
           localStorage.setItem('mernToken', res.data.token);
-          this.setState({ token: res.data.token, user: res.data.user });
+          setToken(res.data.token);
+          setUser(res.data.user);
         }
       })
     }
   }
 
-  componentDidMount = () => {
-    this.checkForLocalToken()
+  useEffect( () => {
+    checkForLocalToken()
+  }, [])
+
+  let liftToken = ({token, user}) => {
+    setToken(token)
+    setUser(user)
   }
 
-  liftToken = ({token, user}) => {
-    this.setState({ token, user });
-  }
-
-  logout = () => {
+  let logout = () => {
     localStorage.removeItem('mernToken');
-    this.setState({ token: '', user: null });
+    setToken('');
+    setUser(null);
   }
 
-  render() { 
-    let contents;
-    let nav;
-    if (this.state.user) {
-      nav = (
-        <nav>
-          <Scramble type={selectedDropdown}/>
-          <HamburgerMenu />
-        </nav>
-      )
-      contents = (
-        <>
-          <p>Hello, {this.state.user.name} </p>
-          <button onClick={this.logout}>Logout</button>
-          <p>{this.state.lockedResult}</p>
-        </>
-      )
+  let handleOpening = () => {
+    if (navDiv === true) {
+      setNavDiv(false)
+      setOpen(!open)
     } else {
-      nav = (
-        <nav>
-          <h1>AppName</h1>
-          <HamburgerMenu />
-        </nav>
-      )
-      contents = (
-        <>
-          <Signup liftToken={this.liftToken} />
-          <Login liftToken={this.liftToken} />
-        </>
-      )
+      setNavDiv(true)
+      setOpen(!open)
     }
-
-    return ( 
-      <Router>
-        <ApolloProvider client={client}>
-          <div className="App">
-            <header>
-              {nav}
-            </header>
-            <div className="App">
-              {contents}
-            </div>
-          </div>
-        </ApolloProvider>
-      </Router>
-    );
   }
-}
 
-export default App;
+  let contents;
+  let nav;
+  if (user) {
+    nav = (
+      <nav>
+        <Scramble type={selectedDropdown}/>
+        <HamburgerMenu isOpen={open} menuClicked={() => {setOpen(!open); setNavDiv(!navDiv)}} width={18} height={15} animationDuration={0.5} />
+        <div className="nav-div" style={{display: navDiv ? "inline-block" : "none"}}><div className="nav-div-content"> <p>Hello</p> </div></div>
+      </nav>
+    )
+    contents = (
+      <>
+        <p>Hello, {user.name} </p>
+        <button onClick={logout}>Logout</button>
+      </>
+    )
+  } else {
+    nav = (
+      <nav>
+        <h1>AppName</h1>
+        <div className="cooperate"><HamburgerMenu style={{top: 0, right: 5 + 'vw'}} isOpen={open} menuClicked={() => {setOpen(!open); setNavDiv(!navDiv)}} width={18} height={15} animationDuration={0.5} margin-top={100 + 'px'}><p>Hello</p> </HamburgerMenu></div>
+        <div className="nav-div" style={{display: navDiv ? "inline-block" : "none"}}><div className="nav-div-content"> <p>Hello</p> </div></div>
+      </nav>
+    )
+    contents = (
+      <>
+        <Signup liftToken={liftToken} />
+        <Login liftToken={liftToken} />
+      </>
+    )
+  }
+
+  return ( 
+    <Router>
+      <ApolloProvider client={client}>
+        <div className="App">
+          <header>
+            {nav}
+          </header>
+          <div className="App">
+            {contents}
+          </div>
+        </div>
+      </ApolloProvider>
+    </Router>
+  );
+}

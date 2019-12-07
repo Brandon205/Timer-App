@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 // Gets sessionId and user
 export default function Time(props) {
-  const [times, setTimes] = useState([]);
   const [time, setTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [active, setActive] = useState(false);
@@ -82,7 +81,7 @@ export default function Time(props) {
       variables: {
       timeId: id
       },
-      refetchQueries: [{query: SESSION_TIMES}]
+      refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
     })
   }
 
@@ -93,7 +92,7 @@ export default function Time(props) {
         userId: props.user._id,
         session: props.sessionId
       },
-      refetchQueries: [{query: SESSION_TIMES}]
+      refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
     })
   }
 

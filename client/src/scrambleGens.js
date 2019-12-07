@@ -13,3 +13,11 @@ export function get3x3Scramble() {
   // var testStr = test.join(' ')
   return test.join(' ')
 }
+
+export function get2x2Scramble() {
+  return "R F U2 F' ..." 
+}
+
+export function get4x4Scramble() {
+  return "Rw2 F U2 Lw' ..."
+}

@@ -18,7 +18,7 @@ export const SESSIONS = gql`
 `
 
 export const ADD_TIME = gql`
-  mutation($userId: ID!, $session: ID!, $time: Number) {
+  mutation($userId: ID!, $session: ID!, $time: String) {
     addTime(userId: $userId, session: $session, time: $time) {
       time
     }

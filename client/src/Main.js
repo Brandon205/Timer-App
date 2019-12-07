@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Time from './Time';
 import Cube from './Cube';
 import Scramble from './Scramble';
-import { get3x3Scramble } from './scrambleGens';
+import { get3x3Scramble, get2x2Scramble, get4x4Scramble } from './scrambleGens';
 import { ADD_TIME } from './queries';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -11,10 +11,11 @@ export default function Main(props) {
   const [time, setTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [active, setActive] = useState(false);
-  const [solves, setSolves] = useState([]);
+  // const [solves, setSolves] = useState([]);
   const [scramble, setScramble] = useState('');
   const [lastScramble, setLastScramble] = useState('');
   const [type, setType] = useState('3x3');
+  const [sessionId, setSessionId] = useState('5de98724bbc60acf10873df4')
 
   const [addTime] = useMutation(ADD_TIME);
 
@@ -25,12 +26,6 @@ export default function Main(props) {
       sec: Math.floor(seconds % 60).toString(),
       msec: (seconds % 1).toFixed(3).substring(2)
     }
-  }
-
-  function removeTime(id) {
-    let solvesCopy = [...solves]
-    solvesCopy.splice(id, 1)
-    setSolves(solvesCopy)
   }
 
   useEffect( () => {
@@ -61,11 +56,11 @@ export default function Main(props) {
       } else if (e.key === ' ' && active === true) {
         setActive(false)
         let endTime = getUnits()
-        solves.push(`${endTime.min > 0 ? endTime.min + ':' : ``}${endTime.sec}.${endTime.msec}`)
         addTime({
           variables: {
             userId: props.user._id,
-            session: type
+            session: sessionId,
+            time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
           }
         })
       }
@@ -78,21 +73,29 @@ export default function Main(props) {
 
   let newScram = (type='3x3') => {
     if (type === '3x3') {
-      let scram = get3x3Scramble();
       setLastScramble(scramble)
-      setScramble(scram)
+      setScramble(get3x3Scramble())
+    } else if (type === '2x2') {
+      setLastScramble(scramble)
+      setScramble(get2x2Scramble())
+    } else if (type === '4x4') {
+      setLastScramble(scramble)
+      setScramble(get4x4Scramble())
+    } else {
+      setLastScramble(scramble)
+      setScramble(get3x3Scramble())
     }
   }
 
-  let newType = (val) => {
-    setType(val)
+  let newType = (type, sessionId) => {
+    setType(type)
+    // setSessionId(sessionId)
   }
 
   if (!scramble) {
     newScram(type)
   }
   let units = getUnits();
-  let mappedSolves = solves.map((solve, id) => <div><p key={id}>{solve}</p><button onClick={() => removeTime(id)}>X</button></div> )
   return (
     <div className="App">
       <header>
@@ -100,8 +103,7 @@ export default function Main(props) {
       </header>
       <aside className="left-aside">
         <h2>Times:</h2>
-        {mappedSolves}
-        {/* <Time type={type} /> */}
+        {/* <Time type={type} user={props.user} /> */}
       </aside>
       <h1>{units.min}:{units.sec}.{units.msec}</h1>
       <Cube scramble={scramble} />

@@ -1,47 +1,34 @@
 import React, { useState, useEffect } from 'react';
-// import { SESSIONS } from './queries';
-import { gql } from 'apollo-boost';
+import { SESSIONS } from './queries';
 import { useQuery } from '@apollo/react-hooks';
-
-const SESSIONS = gql`
-  {
-    sessions {
-      id
-      type
-    }
-  }
-`
 
 export default function Scramble(props) {
   const {loading, error, data} = useQuery(SESSIONS)
   const [scram, setScram] = useState('');
-  const [type, setType] = useState('3x3');
+  const [type, setType] = useState('');
+  const [sessionId, setSessionId] = useState('');
 
-  // const data = ''
   useEffect( () => {
     setScram(props.currScram);
   }, [props.currScram])
 
   useEffect( () => {
-    props.newType(type)
-  }, [type]);
+    props.newType(type, sessionId)
+  }, [sessionId])
 
   if (loading) {
-    console.log('loagind;sdlsodgn')
     return <h4>Loading...</h4>
   }
   if (error) {
     console.log(error)
-    // return <h4 style={{color: 'red'}}>ERROR</h4>
+    return <h4 style={{color: 'red'}}>ERROR</h4>
   }
 
+  // let handleChange = (e) => { // { let jsoned = JSON.stringify(e.target.value); console.log(jsoned); setType(jsoned.type); setSessionId(jsoned.id) } }
+  //   setSessionId(e.target.value)
+  //   // setType(e.target.value)
+  // }
 
-  // let mappedSessions;
-  if (data) {
-    // mappedSessions = data.sessions.map( (session, id) => <option key={id} value={session.id}>{session.type}</option> )
-  } else {
-    // mappedSessions = <option>RuhRoh</option>
-  }
   let content;
   if (scram) {
     content = (
@@ -49,9 +36,9 @@ export default function Scramble(props) {
         <button onClick={() => props.getLast()}>Last</button>
         <p>{scram}</p>
         <button onClick={() => props.newScram(type)}>Next ></button>
-        <select name="type" onChange={(e) => setType(e.target.value)}>
-          {/* {mappedSessions} */}
-          {data.sessions.map( (session, id) => <option key={id} value={session.id}>{session.type}</option> )}
+        <select name="type" onChange={ (e) => setSessionId(e.target.value) }>
+          <option value="3x3">Please Select One</option>
+          {data.sessions.map( (session, id) => <option key={id} value={session.type} data-id={session.id} >{session.type}</option> )}
         </select>
       </div>
     )

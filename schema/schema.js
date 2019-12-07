@@ -20,7 +20,7 @@ const TimeType = new GraphQLObjectType({
   name: 'Time',
   fields: () => ({
     id: { type: GraphQLID },
-    time: { type: GraphQLFloat },
+    time: { type: GraphQLString },
     dnf: { type: GraphQLBoolean },
     session: { type: SessionType, args: { session: { type: GraphQLID } }, resolve(parent, args) {
       return Session.findById(args.session)
@@ -105,7 +105,7 @@ const Mutation = new GraphQLObjectType({
 
     addTime: {
       type: TimeType,
-      args: { userId: { type: new GraphQLNonNull(GraphQLID) }, session: { type: new GraphQLNonNull(GraphQLID) }, time: { type: GraphQLFloat } },
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) }, session: { type: new GraphQLNonNull(GraphQLID) }, time: { type: GraphQLString } },
       resolve(parent, args) {
         let time = new Time({
           time: args.time,
@@ -116,13 +116,14 @@ const Mutation = new GraphQLObjectType({
       }
     },
 
-    updateTime: {
-      type: TimeType,
-      args: { timeId: { type: new GraphQLNonNull(GraphQLID)}, currTime: { type: GraphQLFloat } },
-      resolve(parent, args) {
-        return Time.findByIdAndUpdate(args.timeId, { time: args.currTime + 2 }, { new: true })
-      }
-    },
+    // TODO
+    // updateTime: {
+    //   type: TimeType,
+    //   args: { timeId: { type: new GraphQLNonNull(GraphQLID)}, currTime: { type: GraphQLString } },
+    //   resolve(parent, args) {
+    //     return Time.findByIdAndUpdate(args.timeId, { time: args.currTime + 2 }, { new: true })
+    //   }
+    // },
 
     dnfTime: {
       type: TimeType,

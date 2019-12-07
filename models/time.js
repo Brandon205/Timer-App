@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const timeSchema = new mongoose.Schema({
-  time: Number,
+  time: String,
   dnf: { type: Boolean, default: false },
   session: { type: mongoose.Schema.Types.ObjectId, ref: 'Session'},
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Session'}

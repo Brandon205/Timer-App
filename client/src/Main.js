@@ -16,60 +16,60 @@ export default function Main(props) {
   const [type, setType] = useState('3x3');
   const [sessionId, setSessionId] = useState('5de98724bbc60acf10873df4')
 
-  const [addTime] = useMutation(ADD_TIME);
+  // const [addTime] = useMutation(ADD_TIME);
 
-  function getUnits() {
-    const seconds = time / 1000;
-    return {
-      min: Math.floor(seconds / 60).toString(),
-      sec: Math.floor(seconds % 60).toString(),
-      msec: (seconds % 1).toFixed(3).substring(2)
-    }
-  }
+  // function getUnits() {
+  //   const seconds = time / 1000;
+  //   return {
+  //     min: Math.floor(seconds / 60).toString(),
+  //     sec: Math.floor(seconds % 60).toString(),
+  //     msec: (seconds % 1).toFixed(3).substring(2)
+  //   }
+  // }
 
-  useEffect( () => {
-    if (active) {
-      var int = setInterval(update, 10)
-    }
-    return () => {
-      clearInterval(int)
-    }
-  }, [active])
+  // useEffect( () => {
+  //   if (active) {
+  //     var int = setInterval(update, 10)
+  //   }
+  //   return () => {
+  //     clearInterval(int)
+  //   }
+  // }, [active])
 
-  useEffect( () => {
-    setStartTime(Date.now())
-  }, [active])
+  // useEffect( () => {
+  //   setStartTime(Date.now())
+  // }, [active])
 
-  function update() {
-    let current = Date.now() - startTime
-    setTime(time + current)
-    setStartTime(Date.now())
-  }
+  // function update() {
+  //   let current = Date.now() - startTime
+  //   setTime(time + current)
+  //   setStartTime(Date.now())
+  // }
 
-  useEffect( () => {
-    function myFunc(e) {
-      if (e.key === ' ' && active === false) {
-        setTime(0)
-        setStartTime(Date.now())
-        setActive(true)
-      } else if (e.key === ' ' && active === true) {
-        setActive(false)
-        let endTime = getUnits()
-        addTime({
-          variables: {
-            userId: props.user._id,
-            session: sessionId,
-            time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
-          },
-          refetchQueries: [{query: SESSION_TIMES}]
-        })
-      }
-    }
-  window.addEventListener('keyup', myFunc)
-    return () => {
-      window.removeEventListener('keyup', myFunc)
-    }
-  })
+  // useEffect( () => {
+  //   function myFunc(e) {
+  //     if (e.key === ' ' && active === false) {
+  //       setTime(0)
+  //       setStartTime(Date.now())
+  //       setActive(true)
+  //     } else if (e.key === ' ' && active === true) {
+  //       setActive(false)
+  //       let endTime = getUnits()
+  //       addTime({
+  //         variables: {
+  //           userId: props.user._id,
+  //           session: sessionId,
+  //           time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
+  //         },
+  //         refetchQueries: [{query: SESSION_TIMES}]
+  //       })
+  //     }
+  //   }
+  // window.addEventListener('keyup', myFunc)
+  //   return () => {
+  //     window.removeEventListener('keyup', myFunc)
+  //   }
+  // })
 
   let newScram = (type='3x3') => {
     if (type === '3x3') {
@@ -95,7 +95,7 @@ export default function Main(props) {
   if (!scramble) {
     newScram(type)
   }
-  let units = getUnits();
+  // let units = getUnits();
   return (
     <div className="App">
       <header>
@@ -104,7 +104,7 @@ export default function Main(props) {
       <aside className="left-aside">
         <Time sessionId={sessionId} user={props.user} />
       </aside>
-      <h1>{units.min}:{units.sec}.{units.msec}</h1>
+      {/* <h1>{units.min}:{units.sec}.{units.msec}</h1> */}
       {/* <Cube scramble={scramble} /> */}
     </div>
   )

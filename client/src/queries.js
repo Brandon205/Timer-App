@@ -4,6 +4,7 @@ export const SESSION_TIMES = gql`
   query($session: ID!, $userId: ID!) {
     sessionTimes(session: $session, userId: $userId) {
       time
+      id
     }
   }
 `
@@ -53,7 +54,7 @@ export const DELETE_TIMES = gql`
   mutation($userId: ID!, $session: ID!) {
     deleteTimes(userId: $userId, session: $session) {
       acknowledged
-      deleteCount
+      deletedCount
     }
   }
 `

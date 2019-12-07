@@ -3,15 +3,14 @@ import Time from './Time';
 import Cube from './Cube';
 import Scramble from './Scramble';
 import { get3x3Scramble, get2x2Scramble, get4x4Scramble } from './scrambleGens';
-import { ADD_TIME } from './queries';
+import { ADD_TIME, SESSION_TIMES } from './queries';
 import { useMutation } from '@apollo/react-hooks';
 
 export default function Main(props) {
 
-  const [time, setTime] = useState(0);
-  const [startTime, setStartTime] = useState(0);
-  const [active, setActive] = useState(false);
-  // const [solves, setSolves] = useState([]);
+  // const [time, setTime] = useState(0);
+  // const [startTime, setStartTime] = useState(0);
+  // const [active, setActive] = useState(false);
   const [scramble, setScramble] = useState('');
   const [lastScramble, setLastScramble] = useState('');
   const [type, setType] = useState('3x3');
@@ -61,7 +60,8 @@ export default function Main(props) {
             userId: props.user._id,
             session: sessionId,
             time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
-          }
+          },
+          refetchQueries: [{query: SESSION_TIMES}]
         })
       }
     }
@@ -88,8 +88,8 @@ export default function Main(props) {
   }
 
   let newType = (type, sessionId) => {
-    setType(type)
-    // setSessionId(sessionId)
+    // setType(type)
+    // setSessionId(type)
   }
 
   if (!scramble) {
@@ -102,11 +102,10 @@ export default function Main(props) {
         <Scramble newScram={newScram} currScram={scramble} getLast={() => setScramble(lastScramble)} lastScram={lastScramble ? true : false} newType={newType} />
       </header>
       <aside className="left-aside">
-        <h2>Times:</h2>
-        {/* <Time type={type} user={props.user} /> */}
+        <Time sessionId={sessionId} user={props.user} />
       </aside>
       <h1>{units.min}:{units.sec}.{units.msec}</h1>
-      <Cube scramble={scramble} />
+      {/* <Cube scramble={scramble} /> */}
     </div>
   )
 }

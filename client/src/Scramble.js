@@ -14,7 +14,7 @@ export default function Scramble(props) {
 
   useEffect( () => {
     props.newType(type, sessionId)
-  }, [sessionId])
+  }, [type])
 
   if (loading) {
     return <h4>Loading...</h4>
@@ -24,10 +24,10 @@ export default function Scramble(props) {
     return <h4 style={{color: 'red'}}>ERROR</h4>
   }
 
-  // let handleChange = (e) => { // { let jsoned = JSON.stringify(e.target.value); console.log(jsoned); setType(jsoned.type); setSessionId(jsoned.id) } }
-  //   setSessionId(e.target.value)
-  //   // setType(e.target.value)
-  // }
+  let handleChange = (e) => { // { let jsoned = JSON.stringify(e.target.value); console.log(jsoned); setType(jsoned.type); setSessionId(jsoned.id) } }
+    setSessionId(e.target.options[e.target.selectedIndex].getAttribute('sessionId'))
+    setType(e.target.value)
+  }
 
   let content;
   if (scram) {
@@ -36,9 +36,9 @@ export default function Scramble(props) {
         <button onClick={() => props.getLast()}>Last</button>
         <p>{scram}</p>
         <button onClick={() => props.newScram(type)}>Next ></button>
-        <select name="type" onChange={ (e) => setSessionId(e.target.value) }>
+        <select name="type" onChange={handleChange}>
           <option value="3x3">Please Select One</option>
-          {data.sessions.map( (session, id) => <option key={id} value={session.type} data-id={session.id} >{session.type}</option> )}
+          {data.sessions.map( (session, id) => <option key={id} value={session.type} sessionid={session.id} >{session.type}</option> )}
         </select>
       </div>
     )

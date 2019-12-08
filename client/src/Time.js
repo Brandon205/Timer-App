@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
+import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME, SESSION } from './queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 // Gets sessionId and user
@@ -7,12 +7,17 @@ export default function Time(props) {
   const [time, setTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [active, setActive] = useState(false);
+  const [sessionId, setSessionId] = useState('');
 
-  const {loading, error, data} = useQuery(SESSION_TIMES, {variables: {userId: props.user._id, session: props.sessionId } });
+  const {loading, error, data} = useQuery(SESSION_TIMES, {variables: {userId: props.user._id, session: sessionId } });
   const [deleteTime] = useMutation(DELETE_TIME);
   const [deleteTimes] = useMutation(DELETE_TIMES);
   const [dnfTime] = useMutation(DNF_TIME);
   const [addTime] = useMutation(ADD_TIME);
+
+  if (!props.sessionId) {
+
+  }
 
   function getUnits() {
     const seconds = time / 1000;
@@ -22,6 +27,10 @@ export default function Time(props) {
       msec: (seconds % 1).toFixed(3).substring(2)
     }
   }
+
+  useEffect( () => {
+    setSessionId(props.sessionId)
+  }, [props.sessionId])
 
   useEffect( () => {
     if (active) {
@@ -104,7 +113,7 @@ export default function Time(props) {
   return (
     <div className="App">
       <h1>Times:</h1>
-      <button onClick={handleDelTimes}>Delete Session Times</button>
+      <button onClick={handleDelTimes}>Delete All</button>
       {data.sessionTimes.map((time, id) => <div key={id}><p>{time.time}</p><button onClick={ (e) => handleDelTime(e, time.id)}>X</button></div>)}
       <h1>{units.min}:{units.sec}.{units.msec}</h1>
     </div>

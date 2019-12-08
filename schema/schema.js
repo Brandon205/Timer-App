@@ -65,6 +65,14 @@ const RootQuery = new GraphQLObjectType({
       }
     },
 
+    session: {
+      type: SessionType,
+      args: { search: { type: GraphQLString } },
+      resolve(parent, args) {
+        return Session.findOne({ type: args.search })
+      }
+    },
+
     sessions: {
       type: new GraphQLList(SessionType),
       resolve(parent, args) {

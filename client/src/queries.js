@@ -18,6 +18,14 @@ export const SESSIONS = gql`
   }
 `
 
+export const SESSION = gql`
+  query($search: String) {
+    session(search: $search) {
+      id
+    }
+  }
+`
+
 export const ADD_TIME = gql`
   mutation($userId: ID!, $session: ID!, $time: String) {
     addTime(userId: $userId, session: $session, time: $time) {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME, SESSION } from './queries';
+import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-// Gets sessionId and user
 export default function Time(props) {
   const [time, setTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
@@ -15,9 +14,7 @@ export default function Time(props) {
   const [dnfTime] = useMutation(DNF_TIME);
   const [addTime] = useMutation(ADD_TIME);
 
-  if (!props.sessionId) {
-
-  }
+  //TODO?: Make it so that default selected session is 3x3 using SESSION query
 
   function getUnits() {
     const seconds = time / 1000;

@@ -111,11 +111,22 @@ export default function Time(props) {
 
   let units = getUnits();
   return (
-    <div className="App">
+    <div className="left-aside">
       <h1>Times:</h1>
       <div className="div-button" onClick={handleDelTimes}>Delete All</div>
-      {data.sessionTimes.map((time, id) => <div key={id}><p className="times">{time.time}</p>{' | '}<div className="delete-one" onClick={ (e) => handleDelTime(e, time.id)}>X</div>{' | '}<div className="delete-one" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</div></div>)}
-      <h1>{units.min}:{units.sec}.{units.msec}</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Delete</th>
+            <th>DNF</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.sessionTimes.map((time, id) => <tr key={id}><td>{time.time}</td><td className="pointer" onClick={ (e) => handleDelTime(e, time.id)}>X</td><td className="pointer" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</td></tr>)}
+        </tbody>
+      </table>
+      <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
     </div>
   )
 }

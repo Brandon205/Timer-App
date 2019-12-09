@@ -52,6 +52,30 @@ select {
   cursor: pointer;
 }
 
+/* Form Styling */
+.text-input {
+  background-color: rgba(180, 180, 180, 0.75);
+  width: 300px;
+  border: 2px solid white;
+  padding: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.submit {
+  width: 100px;
+  padding: 10px;
+  background-color: tomato;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.submit:hover {
+  background-color: rgb(211, 80, 56);
+}
+
 /* Other Styles */
 .div-button {
   border: 2px solid black;

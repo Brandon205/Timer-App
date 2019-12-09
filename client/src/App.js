@@ -7,6 +7,7 @@ import './App.css';
 
 import Main from './Main';
 import LoginPage from './LoginPage';
+import Home from './Home';
 
 export default function App() {
   const [token, setToken] = useState('');
@@ -81,6 +82,7 @@ export default function App() {
             {nav}
           </header>
           <main>
+            <Route exact path='/' render={ () => <Home user={user} /> } />
             <Route exact path='/main' render={ () => <Main user={user} /> } />
             <Route exact path='/login' render={ () => <LoginPage liftToken={liftToken} /> } />
           </main>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { adder } from './scrambleGens';
 import Cube from './Cube';
 import { LineChart } from 'react-chartkick';
 import 'chart.js';
@@ -78,6 +79,7 @@ export default function Time(props) {
     }
   })
 
+  
   if (loading) {
     return <h4>Loading...</h4>
   }
@@ -85,7 +87,10 @@ export default function Time(props) {
     console.log(error)
     return <h4 style={{color: 'red'}}>Select a type from above</h4>
   }
-
+  // useEffect( () => { // Doesn't work because now it is rendered conditionally and if above the above if's then data.sessionTimes is undefined
+  //   console.log('hello')
+  // }, [data.sessionTimes])
+  
   let handleDelTime = (e, id) => {
     e.preventDefault()
     deleteTime({
@@ -128,10 +133,59 @@ export default function Time(props) {
     content = <Cube scramble={props.scramble} />
   }
 
+  let averages;
+  if (data.sessionTimes.length < 5 && !active) {
+    averages = (
+      <div className="App">
+        <h2>Average of 5: ---</h2>
+        <h2>Average of 12: ---</h2>
+      </div>
+    )
+  } else if (data.sessionTimes.length >= 5 && data.sessionTimes.length < 12 && !active) {
+    let section = [...data.sessionTimes].splice(data.sessionTimes.length - 5, data.sessionTimes.length - 1)
+    let total = adder(section)
+    if (!total) {
+      averages = (
+        <div className="App">
+          <h2>Average of 5: ---</h2>
+          <h2>Average of 12: ---</h2>
+        </div>
+      )
+    } else {
+    averages = (
+      <div className="App">
+        <h2>Average of 5: {(total / 5).toFixed(2)}</h2>
+        <h2>Average of 12: ---</h2>
+      </div>
+    )
+    }
+  } else if (data.sessionTimes.length > 12 && !active) {
+    let section5 = [...data.sessionTimes].splice(data.sessionTimes.length - 5, data.sessionTimes.length - 1)
+    let section12 = [...data.sessionTimes].splice(data.sessionTimes.length - 12, data.sessionTimes.length - 1)
+    let total5 = adder(section5)
+    let total12 = adder(section12)
+    if (!total5 || !total12) {
+      averages = (
+        <div className="App">
+          <h2>Average of 5: ---</h2>
+          <h2>Average of 12: ---</h2>
+        </div>
+      )
+    } else {
+      averages = (
+        <div className="App">
+          <h2>Average of 5: {(total5 / 5).toFixed(2)}</h2>
+          <h2>Average of 12: {(total12 / 12).toFixed(2)}</h2>
+        </div>
+      )
+    }
+  }
+
   let units = getUnits();
   return (
     <div className="left-aside">
       <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
+      {averages}
       <table>
         <thead>
           <tr>

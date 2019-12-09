@@ -9,3 +9,35 @@ nav {
 .App {
   text-align: center;
 }
+
+.div-button {
+  border: 2px solid black;
+  border-radius: 15px;
+  width: 10vw;
+  padding: 0;
+  display: inline-block;
+  margin-bottom: 10px
+}
+
+.scramble {
+  background-color: rgba(66, 66, 66, 0.363);
+  width: 80vw;
+  border-radius: 0 0 5px 5px;
+  margin: 0 auto;
+  padding: 10px 0 10px 0
+}
+
+.scramble p {
+  margin: 0;
+}
+
+.delete-one {
+  border: 2px solid black;
+  border-radius: 7px;
+  display: inline-block;
+  padding: 0 5px 0 5px;
+}
+
+.times {
+  display: inline;
+}

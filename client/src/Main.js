@@ -10,7 +10,7 @@ export default function Main(props) {
   const [type, setType] = useState('');
   const [sessionId, setSessionId] = useState('')
 
-  let cube;
+  var cube = <h2>Graph here</h2>;
   let newScram = (type='3x3') => {
     if (type === '3x3') {
       setLastScramble(scramble)
@@ -41,7 +41,7 @@ export default function Main(props) {
   }
   return (
     <div className="App">
-      <header>
+      <header className="scramble">
         <Scramble newScram={newScram} currScram={scramble} getLast={() => setScramble(lastScramble)} lastScram={lastScramble ? true : false} newType={newType} />
       </header>
       <aside className="left-aside">

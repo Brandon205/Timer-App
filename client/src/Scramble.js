@@ -32,25 +32,25 @@ export default function Scramble(props) {
   let content;
   if (scram) {
     content = (
-      <div className="scramble">
-        <button onClick={() => props.getLast()}>Last</button>
+      <div>
         <p>{scram}</p>
-        <button onClick={() => props.newScram(type)}>Next ></button>
+        <div className="div-button" onClick={() => props.getLast()}>Last</div>
         <select name="type" onChange={handleChange}>
           <option value="3x3">Please Select One</option>
           {data.sessions.map( (session, id) => <option key={id} value={session.type} sessionid={session.id} >{session.type}</option> )}
         </select>
+        <div className="div-button" onClick={() => props.newScram(type)}>Next ></div><br/>
       </div>
     )
   } else {
     content = (
-      <div className="scramble">
+      <div>
         <p>RuhRoh</p>
       </div>
     )
   }
   return (
-    <div className="scramble">
+    <div>
       {content}
     </div>
   )

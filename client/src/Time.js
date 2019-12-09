@@ -78,7 +78,7 @@ export default function Time(props) {
   }
   if (error) {
     console.log(error)
-    return <h4 style={{color: 'red'}}>ERROR</h4>
+    return <h4 style={{color: 'red'}}>Select a type from above</h4>
   }
 
   let handleDelTime = (e, id) => {
@@ -102,16 +102,19 @@ export default function Time(props) {
     })
   }
 
-  let handleDnfTime = (e) => {
-
+  let handleDnfTime = (e, id) => {
+    e.preventDefault()
+    dnfTime({
+      timeId: id
+    })
   }
 
   let units = getUnits();
   return (
     <div className="App">
       <h1>Times:</h1>
-      <button onClick={handleDelTimes}>Delete All</button>
-      {data.sessionTimes.map((time, id) => <div key={id}><p>{time.time}</p><button onClick={ (e) => handleDelTime(e, time.id)}>X</button></div>)}
+      <div className="div-button" onClick={handleDelTimes}>Delete All</div>
+      {data.sessionTimes.map((time, id) => <div key={id}><p className="times">{time.time}</p>{' | '}<div className="delete-one" onClick={ (e) => handleDelTime(e, time.id)}>X</div>{' | '}<div className="delete-one" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</div></div>)}
       <h1>{units.min}:{units.sec}.{units.msec}</h1>
     </div>
   )

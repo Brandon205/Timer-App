@@ -39,7 +39,7 @@ export default function Scramble(props) {
           <option value="3x3">Please Select One</option>
           {data.sessions.map( (session, id) => <option key={id} value={session.type} sessionid={session.id} >{session.type}</option> )}
         </select>
-        <div className="div-button" onClick={() => props.newScram(type)}>Next ></div><br/>
+        <div className="div-button" onClick={() => props.newScram(type)}>Next</div><br/>
       </div>
     )
   } else {

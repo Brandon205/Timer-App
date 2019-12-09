@@ -55,6 +55,7 @@ export default function Time(props) {
   useEffect( () => {
     function myFunc(e) {
       if (e.key === ' ' && active === false) {
+        e.preventDefault()
         setTime(0)
         setStartTime(Date.now())
         setActive(true)
@@ -130,8 +131,7 @@ export default function Time(props) {
   let units = getUnits();
   return (
     <div className="left-aside">
-      <h1>Times:</h1>
-      <div className="div-button" onClick={handleDelTimes}>Delete All</div>
+      <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
       <table>
         <thead>
           <tr>
@@ -144,11 +144,12 @@ export default function Time(props) {
           {data.sessionTimes.map((time, id) => <tr key={id}><td>{time.time}</td><td className="pointer" onClick={ (e) => handleDelTime(e, time.id)}>X</td><td className="pointer" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</td></tr>)}
         </tbody>
       </table>
-      <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
+      <div className="div-button" onClick={handleDelTimes}>Delete All Times</div>
+      <hr />
       <div className="graph">
         <select name="cube-or-graph" onChange={(e) => setSelectedOption(e.target.value)}>
           <option value="Graph" defaultValue>Graph</option>
-          <option value="Cube">Cube</option>
+          <option value="Cube">Draw Scramble</option>
         </select>
         {content}
       </div>

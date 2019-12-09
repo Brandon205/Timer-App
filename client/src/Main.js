@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Time from './Time';
-import Cube from './Cube';
 import Scramble from './Scramble';
 import { get3x3Scramble, get2x2Scramble, get4x4Scramble } from './scrambleGens';
 

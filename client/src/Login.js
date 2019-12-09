@@ -25,7 +25,7 @@ class Login extends React.Component {
         this.props.liftToken(res.data);
       }
     }).catch(err => console.log(err)); // Rate limiter catch block
-    this.setState({ redirect: <Redirect to="/main" /> });
+    this.setState({ redirect: <Redirect to="/" /> });
   }
 
   render() { 

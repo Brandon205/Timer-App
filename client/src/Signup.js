@@ -26,7 +26,7 @@ class Signup extends React.Component {
         this.props.liftToken(res.data)
       }
     }).catch(err => console.log(err));
-    this.setState({ redirect: <Redirect to="/main" /> });
+    this.setState({ redirect: <Redirect to="/" /> });
   }
 
   render() { 

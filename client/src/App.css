@@ -1,9 +1,10 @@
 nav { 
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: rgba(128, 128, 128, 0.603);
+  background-color: black;
 }
 
 table {
@@ -12,24 +13,58 @@ table {
 }
 
 table, th, td {
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 th, td {
   padding: 7px 15px;
 }
 
+select {
+  width: 15vw;
+  background-color: rgb(64, 69, 75);
+  font-size: 1.1em;
+}
+
 .App {
   text-align: center;
 }
 
+/* NavBar Styling */
+.app-name {
+  font-size: 2.5em;
+  text-decoration: none;
+  color: white;
+}
+
+.app-name:hover {
+  color: rgb(59, 59, 59);
+}
+
+.nav-link {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  color: rgb(59, 59, 59);
+  cursor: pointer;
+}
+
+/* Other Styles */
 .div-button {
   border: 2px solid black;
   border-radius: 15px;
   min-width: 10vw;
-  padding: 0;
+  padding: 0 5px;
   display: inline-block;
   margin: 5px 10px 8px 10px;
+}
+
+.div-button:hover {
+  background-color: rgba(44, 44, 44, 0.363);
+  cursor: pointer;
 }
 
 .scramble {
@@ -37,7 +72,7 @@ th, td {
   width: 68vw;
   border-radius: 0 0 5px 5px;
   margin: 0 auto;
-  padding: 10px 0 10px 0
+  padding: 10px 0 10px 0;
 }
 
 .scramble p {

@@ -123,7 +123,7 @@ export default function Time(props) {
 
   let content;
   if (selectedOption === 'Graph') {
-    content = <LineChart xtitle="Count" ytitle="Time(min)" data={result} />
+    content = <LineChart xtitle="Solve Number" ytitle="Time(min)" data={result} />
   } else {
     content = <Cube scramble={props.scramble} />
   }

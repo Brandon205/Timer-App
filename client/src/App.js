@@ -11,7 +11,6 @@ import LoginPage from './LoginPage';
 export default function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(null);
-  const [selectedDropdown, setSelectedDropdown] = useState('');
 
   const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' });
 
@@ -60,16 +59,16 @@ export default function App() {
   if (user) {
     nav = (
       <nav>
-        <h1>AppName</h1>
-        <Link to="/main">Timer</Link>
-        <button onClick={logout}>Logout</button>
+        <Link className="app-name" to="/">AppName</Link>
+        <Link className="nav-link" to="/main">Timer</Link>
+        <div className="nav-link" onClick={logout}>Logout</div>
       </nav>
     )
   } else {
     nav = (
       <nav>
-        <h1>AppName</h1>
-        <Link to="/login" >Login/Signup</Link>
+        <Link className="app-name" to="/">AppName</Link>
+        <Link className="nav-link" to="/login" >Login/Signup</Link>
       </nav>
     )
   }

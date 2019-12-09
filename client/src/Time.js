@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import Cube from './Cube';
+import { LineChart } from 'react-chartkick';
+import 'chart.js';
 
 export default function Time(props) {
   const [time, setTime] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [active, setActive] = useState(false);
   const [sessionId, setSessionId] = useState('');
+  const [selectedOption, setSelectedOption] = useState('Graph');
 
   const {loading, error, data} = useQuery(SESSION_TIMES, {variables: {userId: props.user._id, session: sessionId } });
   const [deleteTime] = useMutation(DELETE_TIME);
@@ -73,6 +77,15 @@ export default function Time(props) {
     }
   })
 
+  // var result = {};
+  // var count = 1
+  // useEffect( () => {
+  //   for (var i = 0; i < data.sessionTimes.length; i++) {
+  //     result[count] = data.sessionTimes[i].time;
+  //     count++
+  //   }
+  // }, [data])
+
   if (loading) {
     return <h4>Loading...</h4>
   }
@@ -109,6 +122,25 @@ export default function Time(props) {
     })
   }
 
+  // let handleChange = (e) => {
+  //   e.preventDefault()
+  //   setSelectedOption(e.target.value)
+  // }
+
+  var result = {};
+  var count = 1
+  for (var i = 0; i < data.sessionTimes.length; i++) {
+    result[count] = data.sessionTimes[i].time;
+    count++
+  }
+
+  let content;
+  if (selectedOption === 'Graph') {
+    content = <LineChart id="canvas-graph" data={result} />
+  } else {
+    content = <Cube scramble={props.scramble} />
+  }
+
   let units = getUnits();
   return (
     <div className="left-aside">
@@ -127,6 +159,13 @@ export default function Time(props) {
         </tbody>
       </table>
       <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
+      <div className="graph">
+        <select name="cube-or-graph" onChange={(e) => setSelectedOption(e.target.value)}>
+          <option value="Cube" defaultValue>Cube</option>
+          <option value="Graph">Graph</option>
+        </select>
+        {content}
+      </div>
     </div>
   )
 }

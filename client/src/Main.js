@@ -10,23 +10,23 @@ export default function Main(props) {
   const [type, setType] = useState('');
   const [sessionId, setSessionId] = useState('')
 
-  var cube = <h2>Graph here</h2>;
+  // var cube = <h2>Graph here</h2>;
   let newScram = (type='3x3') => {
     if (type === '3x3') {
       setLastScramble(scramble)
-      cube = <Cube scramble={scramble} />
+      // cube = <Cube scramble={scramble} />
       setScramble(get3x3Scramble())
     } else if (type === '2x2') {
       setLastScramble(scramble)
-      cube = <h2>Graph here</h2>
+      // cube = <h2>Graph here</h2>
       setScramble(get2x2Scramble())
     } else if (type === '4x4') {
       setLastScramble(scramble)
-      cube = <h2>Graph here</h2>
+      // cube = <h2>Graph here</h2>
       setScramble(get4x4Scramble())
     } else {
       setLastScramble(scramble)
-      cube = <Cube scramble={scramble} />
+      // cube = <Cube scramble={scramble} />
       setScramble(get3x3Scramble())
     }
   }
@@ -45,9 +45,9 @@ export default function Main(props) {
         <Scramble newScram={newScram} currScram={scramble} getLast={() => setScramble(lastScramble)} lastScram={lastScramble ? true : false} newType={newType} />
       </header>
       <aside className="left-aside">
-        <Time sessionId={sessionId} user={props.user} />
+        <Time sessionId={sessionId} user={props.user} scramble={scramble} />
       </aside>
-      {cube}
+      {/* {cube} */}
     </div>
   )
 }

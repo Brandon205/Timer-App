@@ -50,3 +50,8 @@ table, th, td {
 .pointer {
   cursor: pointer;
 }
+
+.graph {
+  width: 75vw;
+  margin: 0 auto;
+}

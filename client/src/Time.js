@@ -54,9 +54,13 @@ export default function Time(props) {
   }
 
   useEffect( () => {
-    function myFunc(e) {
-      if (e.key === ' ' && active === false) {
+    let eatSpaceBar = (e) => {
+      if (e.keyCode === 32) {
         e.preventDefault()
+      }
+    }
+    let myFunc = (e) => {
+      if (e.key === ' ' && active === false) {
         setTime(0)
         setStartTime(Date.now())
         setActive(true)
@@ -73,13 +77,14 @@ export default function Time(props) {
         })
       }
     }
-  window.addEventListener('keyup', myFunc)
+    window.addEventListener('keydown', eatSpaceBar)
+    window.addEventListener('keyup', myFunc)
     return () => {
+      window.removeEventListener('keydown', eatSpaceBar)
       window.removeEventListener('keyup', myFunc)
     }
   })
 
-  
   if (loading) {
     return <h4>Loading...</h4>
   }
@@ -87,10 +92,7 @@ export default function Time(props) {
     console.log(error)
     return <h4 style={{color: 'red'}}>Select a type from above</h4>
   }
-  // useEffect( () => { // Doesn't work because now it is rendered conditionally and if above the above if's then data.sessionTimes is undefined
-  //   console.log('hello')
-  // }, [data.sessionTimes])
-  
+
   let handleDelTime = (e, id) => {
     e.preventDefault()
     deleteTime({

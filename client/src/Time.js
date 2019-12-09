@@ -25,7 +25,7 @@ export default function Time(props) {
     return {
       min: Math.floor(seconds / 60).toString(),
       sec: Math.floor(seconds % 60).toString(),
-      msec: (seconds % 1).toFixed(3).substring(2)
+      msec: (seconds % 1).toFixed(2).substring(2)
     }
   }
 
@@ -77,15 +77,6 @@ export default function Time(props) {
     }
   })
 
-  // var result = {};
-  // var count = 1
-  // useEffect( () => {
-  //   for (var i = 0; i < data.sessionTimes.length; i++) {
-  //     result[count] = data.sessionTimes[i].time;
-  //     count++
-  //   }
-  // }, [data])
-
   if (loading) {
     return <h4>Loading...</h4>
   }
@@ -122,11 +113,6 @@ export default function Time(props) {
     })
   }
 
-  // let handleChange = (e) => {
-  //   e.preventDefault()
-  //   setSelectedOption(e.target.value)
-  // }
-
   var result = {};
   var count = 1
   for (var i = 0; i < data.sessionTimes.length; i++) {
@@ -136,7 +122,7 @@ export default function Time(props) {
 
   let content;
   if (selectedOption === 'Graph') {
-    content = <LineChart id="canvas-graph" data={result} />
+    content = <LineChart xtitle="Count" ytitle="Time(min)" data={result} />
   } else {
     content = <Cube scramble={props.scramble} />
   }
@@ -161,8 +147,8 @@ export default function Time(props) {
       <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
       <div className="graph">
         <select name="cube-or-graph" onChange={(e) => setSelectedOption(e.target.value)}>
-          <option value="Cube" defaultValue>Cube</option>
-          <option value="Graph">Graph</option>
+          <option value="Graph" defaultValue>Graph</option>
+          <option value="Cube">Cube</option>
         </select>
         {content}
       </div>

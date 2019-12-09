@@ -53,5 +53,5 @@ table, th, td {
 
 .graph {
   width: 75vw;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
 }

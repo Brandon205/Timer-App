@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// const timeSchema = new mongoose.Schema({
-//   time: { type: Number, required: true},
-//   dnf: { type: Boolean, default: false},
-//   session: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session'}]
-// })
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,

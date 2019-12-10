@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { adder } from './scrambleGens';
-import Cube from './Cube';
 import { LineChart } from 'react-chartkick';
 import 'chart.js';
+
+import { SESSION_TIMES, DELETE_TIME, DELETE_TIMES, DNF_TIME, ADD_TIME } from './queries';
+import { adder } from './scrambleGens';
+import Cube from './Cube';
 
 export default function Time(props) {
   const [time, setTime] = useState(0);
@@ -13,15 +14,16 @@ export default function Time(props) {
   const [sessionId, setSessionId] = useState('');
   const [selectedOption, setSelectedOption] = useState('Graph');
 
+  // THE GRAPHQL QUERIES/MUTATIONS NEEDED ON THIS PAGE //
   const {loading, error, data} = useQuery(SESSION_TIMES, {variables: {userId: props.user._id, session: sessionId } });
   const [deleteTime] = useMutation(DELETE_TIME);
   const [deleteTimes] = useMutation(DELETE_TIMES);
   const [dnfTime] = useMutation(DNF_TIME);
   const [addTime] = useMutation(ADD_TIME);
 
-  //TODO?: Make it so that default selected session is 3x3 using SESSION query
+  //TODO: Make it so that default selected session is 3x3 using SESSION query
 
-  function getUnits() {
+  function getUnits() { // Function for converting the stored time to something that makes far more sense
     const seconds = time / 1000;
     return {
       min: Math.floor(seconds / 60).toString(),
@@ -30,11 +32,11 @@ export default function Time(props) {
     }
   }
 
-  useEffect( () => {
+  useEffect( () => { // When the props' sessionId changes this one will update too
     setSessionId(props.sessionId)
   }, [props.sessionId])
 
-  useEffect( () => {
+  useEffect( () => { // Checks if (active) and will set an interval if it is
     if (active) {
       var int = setInterval(update, 10)
     }
@@ -43,23 +45,23 @@ export default function Time(props) {
     }
   }, [active])
 
-  useEffect( () => {
+  useEffect( () => { // Sets the start time whenever {active} changes 
     setStartTime(Date.now())
   }, [active])
 
-  function update() {
+  function update() { // Updates the displayed time
     let current = Date.now() - startTime
     setTime(time + current)
     setStartTime(Date.now())
   }
 
   useEffect( () => {
-    let eatSpaceBar = (e) => {
+    let eatSpaceBar = (e) => { // So that the window doesn't scroll down or any other things that the space bar might do
       if (e.keyCode === 32) {
         e.preventDefault()
       }
     }
-    let myFunc = (e) => {
+    let myFunc = (e) => { // Will start/stop the timer given that the spacebar is released
       if (e.key === ' ' && active === false) {
         setTime(0)
         setStartTime(Date.now())

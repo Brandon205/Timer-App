@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function Cube(props) {
   const [cube, setCube] = useState('')
 
-  useEffect( () => {
+  useEffect( () => { // The cube IFrame requires the scramble to have %20 in between each of the moves 
     let arr = props.scramble.split(' ')
     for (let i = 1; i < arr.length; i += 2) {
       arr.splice(i, 0, '%20')

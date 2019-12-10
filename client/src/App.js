@@ -91,4 +91,3 @@ export default function App() {
     </Router>
   );
 }
-//render={ () => <Home user={user} /> } 

@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const User = require('../models/user');
 const Session = require('../models/session');
 const Time = require('../models/time');
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLFloat } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -123,15 +123,6 @@ const Mutation = new GraphQLObjectType({
         return time.save();
       }
     },
-
-    // TODO
-    // updateTime: {
-    //   type: TimeType,
-    //   args: { timeId: { type: new GraphQLNonNull(GraphQLID)}, currTime: { type: GraphQLString } },
-    //   resolve(parent, args) {
-    //     return Time.findByIdAndUpdate(args.timeId, { time: args.currTime + 2 }, { new: true })
-    //   }
-    // },
 
     dnfTime: {
       type: TimeType,

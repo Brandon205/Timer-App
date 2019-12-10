@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Time from './Time';
 import Scramble from './Scramble';
 import { get3x3Scramble, get2x2Scramble, get4x4Scramble } from './scrambleGens';
@@ -9,7 +10,7 @@ export default function Main(props) {
   const [type, setType] = useState('');
   const [sessionId, setSessionId] = useState('')
 
-  let newScram = (type='3x3') => {
+  let newScram = (type='3x3') => { // Will get info from the scramble generator based on the provided type
     if (type === '3x3') {
       setLastScramble(scramble)
       setScramble(get3x3Scramble())
@@ -25,7 +26,7 @@ export default function Main(props) {
     }
   }
 
-  let newType = (type, sessionId) => {
+  let newType = (type, sessionId) => { // Updates the current type and sessionId
     setType(type)
     setSessionId(sessionId)
   }
@@ -36,7 +37,7 @@ export default function Main(props) {
   return (
     <div className="App">
       <header className="scramble">
-        <Scramble newScram={newScram} currScram={scramble} getLast={() => setScramble(lastScramble)} lastScram={lastScramble ? true : false} newType={newType} />
+        <Scramble newScramble={newScram} currScramble={scramble} getLast={() => setScramble(lastScramble)} newType={newType} />
       </header>
       <aside className="left-aside">
         <Time sessionId={sessionId} user={props.user} scramble={scramble} />

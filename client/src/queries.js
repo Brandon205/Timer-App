@@ -5,6 +5,7 @@ export const SESSION_TIMES = gql`
     sessionTimes(session: $session, userId: $userId) {
       time
       id
+      dnf
     }
   }
 `

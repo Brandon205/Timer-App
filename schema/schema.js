@@ -135,7 +135,7 @@ const Mutation = new GraphQLObjectType({
 
     dnfTime: {
       type: TimeType,
-      args: { timeId: { type: new GraphQLNonNull(GraphQLID) } },
+      args: { timeId: { type: new GraphQLNonNull(GraphQLID) }},
       resolve(parent, args) {
         return Time.findByIdAndUpdate(args.timeId, { dnf: true }, { new: true })
       }

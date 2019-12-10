@@ -117,7 +117,10 @@ export default function Time(props) {
   let handleDnfTime = (e, id) => {
     e.preventDefault()
     dnfTime({
-      timeId: id
+      variables: {
+        timeId: id
+      }, 
+      refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
     })
   }
 
@@ -197,7 +200,7 @@ export default function Time(props) {
           </tr>
         </thead>
         <tbody>
-          {data.sessionTimes.map((time, id) => <tr key={id}><td>{time.time}</td><td className="pointer" onClick={ (e) => handleDelTime(e, time.id)}>X</td><td className="pointer" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</td></tr>)}
+          {data.sessionTimes.map((time, id) => <tr key={id}><td>{time.dnf ? "DNF" : time.time}</td><td className="pointer" onClick={ (e) => handleDelTime(e, time.id)}>X</td><td className="pointer" onClick={ (e) => handleDnfTime(e, time.id)}>DNF</td></tr>)}
         </tbody>
       </table>
       <div className="div-button" onClick={handleDelTimes}>Delete All Times</div>

@@ -24,9 +24,9 @@ class Signup extends React.Component {
       } else {
         localStorage.setItem('mernToken', res.data.token)
         this.props.liftToken(res.data)
+        this.setState({ redirect: <Redirect to="/" /> });
       }
     }).catch(err => console.log(err));
-    this.setState({ redirect: <Redirect to="/" /> });
   }
 
   render() { 

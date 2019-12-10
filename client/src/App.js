@@ -60,7 +60,7 @@ export default function App() {
   if (user) {
     nav = (
       <nav>
-        <Link className="app-name" to="/">AppName</Link>
+        <Link className="app-name" to="/">cubeX</Link>
         <Link className="nav-link" to="/main">Timer</Link>
         <div className="nav-link" onClick={logout}>Logout</div>
       </nav>
@@ -68,7 +68,7 @@ export default function App() {
   } else {
     nav = (
       <nav>
-        <Link className="app-name" to="/">AppName</Link>
+        <Link className="app-name" to="/">cubeX</Link>
         <Link className="nav-link" to="/login" >Login/Signup</Link>
       </nav>
     )

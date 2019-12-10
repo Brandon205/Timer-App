@@ -40,7 +40,7 @@ export default function Main(props) {
         <Scramble newScramble={newScram} currScramble={scramble} getLast={() => setScramble(lastScramble)} newType={newType} />
       </header>
       <aside className="left-aside">
-        <Time sessionId={sessionId} user={props.user} scramble={scramble} />
+        <Time sessionId={sessionId} user={props.user} scramble={scramble} newScramble={newScram} />
       </aside>
     </div>
   )

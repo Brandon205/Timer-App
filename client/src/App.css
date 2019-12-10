@@ -131,3 +131,7 @@ select {
   width: 75vw;
   margin: 0 auto 50px auto;
 }
+
+.description {
+  font-weight: normal;
+}

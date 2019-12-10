@@ -23,9 +23,9 @@ class Login extends React.Component {
       } else {
         localStorage.setItem('mernToken', res.data.token);
         this.props.liftToken(res.data);
+        this.setState({ redirect: <Redirect to="/" /> });
       }
     }).catch(err => console.log(err)); // Rate limiter catch block
-    this.setState({ redirect: <Redirect to="/" /> });
   }
 
   render() { 

@@ -77,6 +77,7 @@ export default function Time(props) {
           },
           refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
         })
+        props.newScramble()
       }
     }
     window.addEventListener('keydown', eatSpaceBar)

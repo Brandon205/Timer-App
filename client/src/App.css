@@ -5,11 +5,13 @@ nav {
   padding-left: 25px;
   padding-right: 25px;
   background-color: black;
+  font-family: 'Orbitron', sans-serif;
 }
 
 table {
   border-collapse: collapse;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
+  box-shadow: 0 7px 12px gray;
 }
 
 table, th, td {
@@ -20,10 +22,16 @@ th, td {
   padding: 7px 15px;
 }
 
+h4 {
+  margin: 5px;
+}
+
 select {
   width: 15vw;
-  background-color: rgb(64, 69, 75);
+  background-color: black;
   font-size: 1.1em;
+  color: white;
+  margin-bottom: 5px;
 }
 
 .App {
@@ -35,6 +43,8 @@ select {
   font-size: 2.5em;
   text-decoration: none;
   color: white;
+  margin-bottom: 5px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .app-name:hover {
@@ -97,6 +107,7 @@ select {
   border-radius: 0 0 5px 5px;
   margin: 0 auto;
   padding: 10px 0 10px 0;
+  box-shadow: 5px 6px 5px gray;
 }
 
 .scramble p {
@@ -109,6 +120,7 @@ select {
 
 .timer {
   font-size: 4em;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .pointer {

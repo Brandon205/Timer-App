@@ -89,8 +89,7 @@ export default function Time(props) {
     return <h4>Loading...</h4>
   }
   if (error) {
-    console.log(error)
-    return <h4 style={{color: 'red'}}>Select a type from above</h4>
+    return <h3 style={{color: 'red'}}>Select a type from above</h3>
   }
 
   let handleDelTime = (e, id) => {

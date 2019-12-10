@@ -5,7 +5,7 @@ export default function Home(props) {
   if (props.user) {
     content = (
       <div className="App">
-        <h1>Welcome to AppName {props.user.name}!</h1>
+        <h1>Welcome to cubeX, {props.user.name}!</h1>
         <p>
           Go ahead and click on Timer up above to get started. Or if you need a few hints on how to solve a 
           Rubiks Cube then go ahead and head to <a href="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/" target="_blank" rel="noopener noreferrer">Ruwix.com</a>.
@@ -15,9 +15,9 @@ export default function Home(props) {
   } else {
     content = (
       <div className="App">
-        <h1>Welcome to AppName!</h1>
+        <h1>Welcome to cubeX!</h1>
         <p>
-          AppName is an app that is specifically for timing your Rubiks Cube solves 
+          cubeX is an app that is specifically for timing your Rubiks Cube solves 
           it infers that you know how to solve one first and reccomends that if you 
           don't that you go to <a href="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/" target="_blank" rel="noopener noreferrer">this</a> site.
           Once you have it down in order to practice or get ready for a competition it is

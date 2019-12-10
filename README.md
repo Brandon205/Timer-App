@@ -10,3 +10,7 @@ Once the idea came to my head I started thinking about the features that I wante
 After having basic planning laid out I decided on the stack that I was going to use for this project. I am the most experienced with the MERN stack, so I went with that. Instead of using Express for all of the routing including the database routes I also looked into, and decided to use, GraphQL to handle all of the database amnipulation. The rest of the day was finishing up planning including stubbing out the GraphQL routes, and finalizing design and layout plans. Then I started writing out the Queries that I was going to use with GraphQL, prior to this my experience was light with GraphQL, but even then writing out these routes only took a few hours,and the GraphiQL interface is a really nice way to test out your queries. By the end of the day I was able to make a lot of progress and have all of my queries crafted.
 
 ## Day 2 
+Day 2 was mostly me just making the queries I made yesterday acutally work not just in GraphiQL but in the app based on buttons. This did end up taking up nearly all day just because I needed to figure out a few more things than what I knew about GraphQL like making a seperate file for all of your queries and then how to import and then use them. Once figuring that out another breakthrough I had was finding out that you can pass variables to a query not just mutations, which was very helpful for a few of my routes.
+
+## Day 3
+Today I was able to 

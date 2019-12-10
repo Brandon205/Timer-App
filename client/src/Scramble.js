@@ -33,7 +33,7 @@ export default function Scramble(props) {
   if (scram) {
     content = (
       <div>
-        <p>{scram}</p>
+        <h4>{scram}</h4>
         <div className="div-button" onClick={() => props.getLast()}>Last</div>
         <select name="type" onChange={handleChange}>
           <option value="3x3">Select a Type</option>

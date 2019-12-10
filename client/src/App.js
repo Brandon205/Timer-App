@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import './App.css';
@@ -83,7 +83,7 @@ export default function App() {
           </header>
           <main>
             <Route exact path='/' render={ () => <Home user={user} /> } />
-            <Route exact path='/main' render={ () => <Main user={user} /> } />
+            <Route exact path='/main'>{user ? <Main user={user} /> : <Redirect to='/' /> }</Route>
             <Route exact path='/login' render={ () => <LoginPage liftToken={liftToken} /> } />
           </main>
         </div>
@@ -91,3 +91,4 @@ export default function App() {
     </Router>
   );
 }
+//render={ () => <Home user={user} /> } 

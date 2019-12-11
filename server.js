@@ -24,4 +24,8 @@ app.use('/graphql', graphqlHTTP({
 }));
 app.use('/auth', require('./routes/auth'));
 
-app.listen(process.env.PORT || 3001, () => console.log('Listening...'))
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/client/build/index.html')
+})
+
+app.listen(process.env.PORT, () => console.log('Listening...'))

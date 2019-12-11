@@ -22,6 +22,7 @@ export default function Scramble(props) {
     return <h4>Loading...</h4>
   }
   if (error) {
+    console.log(error);
     return <h4 style={{color: 'red'}}>ERROR, try going to the homepage and coming back</h4>
   }
 

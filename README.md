@@ -4,7 +4,7 @@
 cubeX is simply a timer for you to use in whatever way you see fit however it has extra capabilities when used as a Rubik's cube solve timer. In general once a user logs in all of the times that they have is stored in a MongoDB so that no matter where you are logged in your times follow you. The app also will generate a (non-WCA) scramble for some of the more simple cubes though more scramble generators are coming soon. It uses the Ruwix 3D Cube Widget to show you what the scramble should look like. It also has a few data analysis features like calculating your most recent Average of 5, along with your most recent Average of 12. If the option is selected there is also a helpful generated graph of your times in that session so that you can see your progress. Another feature that is coming is a tutorial page in which the user can learn the different move notations along with a basic step-by-step tutorial on how to solve the cube.
 
 ## The App
-Here is a link to the deployed [app](#). It is a Heroku app so please give it some time to spin up.
+Here is a link to the deployed [app](https://sheltered-reef-38980.herokuapp.com/). It is a Heroku app so please give it some time to spin up.
 Here are some testing credentials: email: t@t.com, password: password
 
 ## Pre Day 1 

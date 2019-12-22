@@ -10,7 +10,7 @@ const cors = require('cors');
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static(__dirname + '/client/build'));
+// app.use(express.static(__dirname + '/client/build'));
 app.use(helmet());
 app.use(cors());
 

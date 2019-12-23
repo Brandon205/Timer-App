@@ -13,8 +13,7 @@ export default function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(null);
   const [mobile, setMobile] = useState(false);
-
-  const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' }); //https://sheltered-reef-38980.herokuapp.com/graphql
+  const client = new ApolloClient({ uri: 'https://sheltered-reef-38980.herokuapp.com/graphql' }); //http://localhost:3001/graphql
 
   let checkForLocalToken = () => {
     // Look in LS for localtoken

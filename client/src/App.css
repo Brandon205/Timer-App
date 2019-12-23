@@ -135,3 +135,11 @@ select {
 .description {
   font-weight: normal;
 }
+
+.start-stop {
+  font-size: 2em;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}

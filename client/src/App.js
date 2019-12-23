@@ -12,6 +12,7 @@ import Home from './Home';
 export default function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(null);
+  const [mobile, setMobile] = useState(false);
 
   const client = new ApolloClient({ uri: 'http://localhost:3001/graphql' }); //https://sheltered-reef-38980.herokuapp.com/graphql
 
@@ -62,6 +63,7 @@ export default function App() {
       <nav>
         <Link className="app-name" to="/">cubeX</Link>
         <Link className="nav-link" to="/main">Timer</Link>
+        <div className="nav-link" onClick={() => setMobile(!mobile)}>{mobile ? 'Desktop Mode' : 'Mobile Mode' }</div>
         <div className="nav-link" onClick={logout}>Logout</div>
       </nav>
     )
@@ -83,7 +85,7 @@ export default function App() {
           </header>
           <main>
             <Route exact path='/' render={ () => <Home user={user} /> } />
-            <Route exact path='/main'>{user ? <Main user={user} /> : <Redirect to='/' /> }</Route>
+            <Route exact path='/main'>{user ? <Main user={user} mobile={mobile} /> : <Redirect to='/' /> }</Route>
             <Route exact path='/login' render={ () => <LoginPage liftToken={liftToken} /> } />
           </main>
         </div>

@@ -55,36 +55,37 @@ export default function Time(props) {
     setStartTime(Date.now())
   }
 
+  let timer = (e) => { // Will start/stop the timer given that the spacebar is released
+    if (e.key === ' ' || e.target.value === 'time' && !active) {
+      setTime(0)
+      setStartTime(Date.now())
+      setActive(true)
+    } else if (e.key === ' ' || e.target.value === 'time' && active) {
+      setActive(false)
+      let endTime = getUnits()
+      addTime({
+        variables: {
+          userId: props.user._id,
+          session: props.sessionId,
+          time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
+        },
+        refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
+      })
+      props.newScramble()
+    }
+  }
+
   useEffect( () => {
     let eatSpaceBar = (e) => { // So that the window doesn't scroll down or any other things that the space bar might do
       if (e.keyCode === 32) {
         e.preventDefault()
       }
     }
-    let myFunc = (e) => { // Will start/stop the timer given that the spacebar is released
-      if (e.key === ' ' && active === false) {
-        setTime(0)
-        setStartTime(Date.now())
-        setActive(true)
-      } else if (e.key === ' ' && active === true) {
-        setActive(false)
-        let endTime = getUnits()
-        addTime({
-          variables: {
-            userId: props.user._id,
-            session: props.sessionId,
-            time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
-          },
-          refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
-        })
-        props.newScramble()
-      }
-    }
     window.addEventListener('keydown', eatSpaceBar)
-    window.addEventListener('keyup', myFunc)
+    window.addEventListener('keyup', timer)
     return () => {
       window.removeEventListener('keydown', eatSpaceBar)
-      window.removeEventListener('keyup', myFunc)
+      window.removeEventListener('keyup', timer)
     }
   })
 
@@ -188,11 +189,18 @@ export default function Time(props) {
     }
   }
 
+  let mobileTimer;
+  if (props.mobile) {
+    mobileTimer = ( <button className="start-stop" value="time" onClick={(e) => timer(e)}>{active ? 'Stop' : 'Start'}</button>)
+  } else {
+    mobileTimer = ''
+  }
   let units = getUnits();
   return (
     <div className="left-aside">
       <h1 className="timer">{units.min}:{units.sec}.{units.msec}</h1>
       {averages}
+      {mobileTimer}
       <table>
         <thead>
           <tr>

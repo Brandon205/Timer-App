@@ -8,7 +8,7 @@ export default function Main(props) {
   const [scramble, setScramble] = useState('');
   const [lastScramble, setLastScramble] = useState('');
   const [type, setType] = useState('');
-  const [sessionId, setSessionId] = useState('')
+  const [sessionId, setSessionId] = useState('');
 
   let newScram = (type='3x3') => { // Will get info from the scramble generator based on the provided type
     if (type === '3x3') {
@@ -40,7 +40,7 @@ export default function Main(props) {
         <Scramble newScramble={newScram} currScramble={scramble} getLast={() => setScramble(lastScramble)} newType={newType} />
       </header>
       <aside className="left-aside">
-        <Time sessionId={sessionId} user={props.user} scramble={scramble} newScramble={newScram} />
+        <Time sessionId={sessionId} user={props.user} scramble={scramble} newScramble={newScram} mobile={props.mobile} />
       </aside>
     </div>
   )

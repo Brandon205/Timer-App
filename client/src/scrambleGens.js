@@ -1,4 +1,6 @@
-let possible = ["F", "F'", "F2", "B", "B'", "B2", "U", "U'", "U2", "D", "D'", "D2", "R", "R'", "R2", "L", "L'", "L2"]
+import Scrambo from 'scrambo';
+let possible = ["F", "F'", "F2", "B", "B'", "B2", "U", "U'", "U2", "D", "D'", "D2", "R", "R'", "R2", "L", "L'", "L2"];
+
 export function get3x3Scramble() { // For 3x3 scrambles  
   let test = []
   for (let i = 0; i < 21; i++) {
@@ -47,6 +49,13 @@ export function get4x4Scramble() { // For 4x4 scrambles
     test.push(toPush)
   }
   return test.join(' ')
+}
+
+export function get5x5Scramble() {
+  let newScram = new Scrambo().get(1);
+  console.log('ran')
+  console.log(newScram);
+  return newScram
 }
 
 export function adder(times) { // For adding up the current sessions Times for averages 

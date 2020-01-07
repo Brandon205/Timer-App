@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import Scrambo from 'scrambo';
 import './App.css';
 
 import Main from './Main';

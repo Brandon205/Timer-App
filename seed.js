@@ -10,6 +10,8 @@ const sessions = [
   {type: '7x7'},
   {type: 'Megaminx'},
   {type: 'Pyraminx'},
+  {type: 'Skewb'},
+  {type: 'Square-1'},
   {type: 'Other'}
 ];
 

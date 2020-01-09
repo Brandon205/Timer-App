@@ -10,7 +10,7 @@ export default function Scramble(props) {
 
   const {loading, error, data} = useQuery(SESSIONS)
 
-  useEffect( () => { // Updates the 
+  useEffect( () => { // Updates the displayed current scramble
     setScramble(props.currScramble);
   }, [props.currScramble])
 

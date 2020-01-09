@@ -56,18 +56,18 @@ export default function Time(props) {
   }
 
   let timer = (e) => { // Will start/stop the timer given that the spacebar is released
-    if (e.key === ' ' || e.target.value === 'time' && !active) {
+    if (e.key === ' ' && !active || e.target.value === 'time' && !active) {
       setTime(0)
       setStartTime(Date.now())
       setActive(true)
-    } else if (e.key === ' ' || e.target.value === 'time' && active) {
+    } else if (e.key === ' ' && active || e.target.value === 'time' && active) {
       setActive(false)
       let endTime = getUnits()
       addTime({
         variables: {
           userId: props.user._id,
           session: props.sessionId,
-          time: endTime.min + '.' + endTime.sec + '.' + endTime.msec
+          time: endTime.min + ':' + endTime.sec + '.' + endTime.msec
         },
         refetchQueries: [{query: SESSION_TIMES, variables: {userId: props.user._id, session: props.sessionId } }]
       })

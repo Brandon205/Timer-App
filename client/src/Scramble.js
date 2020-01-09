@@ -27,8 +27,9 @@ export default function Scramble(props) {
   }
 
   let handleChange = (e) => { // For setting the newly selected type across the app
-    setSessionId(e.target.options[e.target.selectedIndex].getAttribute('sessionId'))
     setType(e.target.value)
+    setSessionId(e.target.options[e.target.selectedIndex].getAttribute('sessionId'))
+    props.newScramble(e.target.value)
   }
 
   let content;

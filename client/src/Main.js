@@ -21,19 +21,19 @@ export default function Main(props) {
         break;
       case (type === '4x4'):
         setLastScramble(scramble)
-        setScramble(new Scrambo().type('444').length(25).get(1))
+        setScramble(new Scrambo().type('444').get(1))
         break;
       case (type === '5x5'):
         setLastScramble(scramble)
-        setScramble(new Scrambo().type('555').length(25).get(1))
+        setScramble(new Scrambo().type('555').get(1))
         break;
       case (type === '6x6'):
         setLastScramble(scramble)
-        setScramble(new Scrambo().type('666').length(25).get(1))
+        setScramble(new Scrambo().type('666').get(1))
         break;
       case (type === '7x7'):
         setLastScramble(scramble)
-        setScramble(new Scrambo().type('777').length(25).get(1))
+        setScramble(new Scrambo().type('777').get(1))
         break;
       case (type === 'Megaminx'):
         setLastScramble(scramble)

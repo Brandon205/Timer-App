@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const User = require('../models/user');
 const Session = require('../models/session');
 const Time = require('../models/time');
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLEnumType } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -12,7 +12,8 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     times: { type: new GraphQLList(TimeType), resolve(parent, args) {
       return Time.find({ userId: parent.id })
-    } }
+    } },
+    pBs: { type: new GraphQLList(BestsType) }
   })
 })
 
@@ -39,6 +40,18 @@ const SessionType = new GraphQLObjectType({
   })
 })
 
+const BestsType = new GraphQLObjectType({
+  name: 'Best',
+  fields: () => ({
+    two: { type: GraphQLString },
+    three: { type: GraphQLString },
+    four: { type: GraphQLString },
+    five: { type: GraphQLString },
+    six: { type: GraphQLString },
+    seven: { type: GraphQLString }
+  })
+})
+
 const DeletedType = new GraphQLObjectType({
   name: 'Deleted',
   fields: () => ({
@@ -58,12 +71,12 @@ const RootQuery = new GraphQLObjectType({
       }
     },
 
-    users: {
-      type: new GraphQLList(UserType),
-      resolve(parent, args) {
-        return User.find()
-      }
-    },
+    // users: { // Possibly not needed 
+    //   type: new GraphQLList(UserType),
+    //   resolve(parent, args) {
+    //     return User.find()
+    //   }
+    // },
 
     session: {
       type: SessionType,
@@ -80,18 +93,26 @@ const RootQuery = new GraphQLObjectType({
       }
     },
 
-    times: {
-      type: new GraphQLList(TimeType),
-      resolve(parent, args) {
-        return Time.find()
-      }
-    },
+    // times: { // Not Needed?
+    //   type: new GraphQLList(TimeType),
+    //   resolve(parent, args) {
+    //     return Time.find()
+    //   }
+    // },
 
     sessionTimes: {
       type: new GraphQLList(TimeType),
       args: { session: { type: new GraphQLNonNull(GraphQLID) }, userId: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
         return Time.find({session: args.session, userId: args.userId})
+      }
+    },
+
+    bests: {
+      type: GraphQLString,
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return User.find({userId: args.userID})
       }
     }
   }

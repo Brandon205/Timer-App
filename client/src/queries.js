@@ -27,6 +27,14 @@ export const SESSION = gql`
   }
 `
 
+export const BESTS = gql`
+  query($userId: ID!) {
+    bests(userId: $userId) {
+      pbs
+    }
+  }
+`
+
 export const ADD_TIME = gql`
   mutation($userId: ID!, $session: ID!, $time: String) {
     addTime(userId: $userId, session: $session, time: $time) {

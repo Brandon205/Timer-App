@@ -23,6 +23,7 @@ app.use('/graphql', graphqlHTTP({
   schema, 
   graphiql: true
 }));
+
 app.use('/auth', require('./routes/auth'));
 
 app.get('*', (req, res) => {

@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
     minlength: [5, 'Password must be between 5 and 99 characters'],
     maxlength: [99, 'Password must be between 5 and 99 characters'],
   },
-  times: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Time'}]
+  times: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Time'}],
+  pBs: { type: Array, default: [{'two': 'N/A', 'three': 'N/A', 'four': 'N/A', 'five': 'N/A', 'six': 'N/A', 'seven': 'N/A', }] }
 });
 
 userSchema.set('toObject', {

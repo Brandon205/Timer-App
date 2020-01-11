@@ -109,10 +109,10 @@ const RootQuery = new GraphQLObjectType({
     },
 
     bests: {
-      type: GraphQLString,
+      type: UserType,
       args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
-        return User.find({userId: args.userID})
+        return User.findById(args.userId)
       }
     }
   }

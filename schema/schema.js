@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const User = require('../models/user');
 const Session = require('../models/session');
 const Time = require('../models/time');
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLEnumType } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLBoolean, GraphQLInputObjectType } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -42,6 +42,18 @@ const SessionType = new GraphQLObjectType({
 
 const BestsType = new GraphQLObjectType({
   name: 'Best',
+  fields: () => ({
+    two: { type: GraphQLString },
+    three: { type: GraphQLString },
+    four: { type: GraphQLString },
+    five: { type: GraphQLString },
+    six: { type: GraphQLString },
+    seven: { type: GraphQLString }
+  })
+})
+
+const BestsInputType = new GraphQLInputObjectType({
+  name: 'BestsInput',
   fields: () => ({
     two: { type: GraphQLString },
     three: { type: GraphQLString },
@@ -166,6 +178,17 @@ const Mutation = new GraphQLObjectType({
       args: { userId: { type: new GraphQLNonNull(GraphQLID) }, session: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
         return Time.deleteMany({session: args.session, userId: args.userId})
+      }
+    },
+
+    editPBs: {
+      type: UserType,
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) }, data: { type: BestsInputType } },
+      resolve(parent, args) {
+        User.findById(args.userId, (err, user) => {
+          user.pBs = args.data
+          return user.save()
+        })
       }
     }
   }

@@ -8,6 +8,7 @@ import './App.css';
 import Main from './Main';
 import LoginPage from './LoginPage';
 import Home from './Home';
+import Best from './Best';
 
 export default function App() {
   const [token, setToken] = useState('');
@@ -63,6 +64,7 @@ export default function App() {
         <Link className="app-name" to="/">cubeX</Link>
         <Link className="nav-link" to="/main">Timer</Link>
         <div className="nav-link" onClick={() => setMobile(!mobile)}>{mobile ? 'Desktop Mode' : 'Mobile Mode' }</div>
+        <Link className="nav-link" to="/bests">Your Times</Link>
         <div className="nav-link" onClick={logout}>Logout</div>
       </nav>
     )
@@ -70,7 +72,7 @@ export default function App() {
     nav = (
       <nav>
         <Link className="app-name" to="/">cubeX</Link>
-        <Link className="nav-link" to="/login" >Login/Signup</Link>
+        <Link className="nav-link" to="/login">Login/Signup</Link>
       </nav>
     )
   }
@@ -85,6 +87,7 @@ export default function App() {
           <main>
             <Route exact path='/' render={ () => <Home user={user} /> } />
             <Route exact path='/main'>{user ? <Main user={user} mobile={mobile} /> : <Redirect to='/' /> }</Route>
+            <Route exact path='/bests' render={ () => <Best user={user} /> } />
             <Route exact path='/login' render={ () => <LoginPage liftToken={liftToken} /> } />
           </main>
         </div>

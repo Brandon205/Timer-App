@@ -30,7 +30,29 @@ export const SESSION = gql`
 export const BESTS = gql`
   query($userId: ID!) {
     bests(userId: $userId) {
-      pbs
+      pBs {
+        two
+        three
+        four
+        five
+        six
+        seven
+      }
+    }
+  }
+`
+
+export const EDIT_PBS = gql`
+  mutation($userId: ID!, $data: BestsInput) {
+    editPBs(userId: $userId, data: $data) {
+      pBs {
+        two
+        three
+        four
+        five
+        six
+        seven
+      }
     }
   }
 `

@@ -9,7 +9,7 @@ export default function Main(props) {
   const [type, setType] = useState('');
   const [sessionId, setSessionId] = useState('');
 
-  let newScram = (type='3x3') => {
+  let newScram = () => {
     switch (true) {
       case (type === '2x2'):
         setLastScramble(scramble)

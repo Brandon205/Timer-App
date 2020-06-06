@@ -83,13 +83,6 @@ const RootQuery = new GraphQLObjectType({
       }
     },
 
-    // users: { // Possibly not needed 
-    //   type: new GraphQLList(UserType),
-    //   resolve(parent, args) {
-    //     return User.find()
-    //   }
-    // },
-
     session: {
       type: SessionType,
       args: { search: { type: GraphQLString } },
@@ -104,13 +97,6 @@ const RootQuery = new GraphQLObjectType({
         return Session.find()
       }
     },
-
-    // times: { // Not Needed?
-    //   type: new GraphQLList(TimeType),
-    //   resolve(parent, args) {
-    //     return Time.find()
-    //   }
-    // },
 
     sessionTimes: {
       type: new GraphQLList(TimeType),
